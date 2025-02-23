@@ -1,6 +1,8 @@
-exports.sum= (x,y)=>{
-    return x+y;
+// arithmetic.js
+const sum = (x, y) => {
+    return x + y;
 };
+
 
 function div(x,y){
     return x/y;
@@ -13,6 +15,7 @@ console.log('Loading arithmetic');
 // }
 
 // 1. Common JS Module
-
-
-// 2. ES6 Module.
+module.exports = {
+    add: sum,
+    div: div
+}

@@ -10,4 +10,4 @@ const server = http.createServer((req, res) => {
 
 server.listen(port);
 
-module.exports = server;
+export default server;

@@ -4,5 +4,5 @@
 const arithmeticModule = require("./arithmetic");
 
 // call sum function
-const result = arithmeticModule.sum(10, 20);
+const result = arithmeticModule.div(10, 20);
 console.log(result); 
