@@ -40,6 +40,6 @@ const createTestEmail = (num) => {
 }
 
 // Loop to send emails to 1000 test email addresses
-for (let i = 0; i <= 1000; i++) {
+for (let i = 0; i <= 100; i++) {
     sendEmail(user.sender, createTestEmail(i)); // Send email to each generated test email address
 }
