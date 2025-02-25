@@ -1,3 +1,22 @@
+// Problem statement
+// Practice writing a code snippet for handling POST requests, appending the request body to a file (file name unspecified) and printing its contents to the console. Gain hands-on experience applicable in scenarios requiring data storage, retrieval, and processing, such as logging or data persistence.
+
+// Objectives:
+
+// i) Handle POST Requests Properly:
+// Complete the implementation of index.js to handle a POST request.
+
+// ii) Write to File:
+// Read the request body and append it to the "data.txt" file.
+
+// iii) Read & Print Data:
+// Read and print the new content of the text file to the console.
+
+// iv) Proper Response Handling (res.end)
+// Handle res.send() appropriately based on the request type:
+// For POST requests, send a response confirming successful data processing.
+// For non-POST requests, send an appropriate response.
+
 // Import the required modules
 import http from "http";
 import fs from "fs";
