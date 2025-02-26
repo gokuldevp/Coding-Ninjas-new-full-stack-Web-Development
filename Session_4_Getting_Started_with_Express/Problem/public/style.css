@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.hero {
+    background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)),
+                url('tech-bg.jpg') center/cover;
+    height: 80vh;
+    color: white;
+}
+
+.achievement-badge {
+    background: #e9ecef;
+    color: black;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin: 5px;
+    display: inline-block;
+}
