@@ -1,0 +1,55 @@
+/* General Styles */
+body {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* Table Styles */
+.table-dark {
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-dark th {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-dark td {
+    vertical-align: middle;
+}
+
+/* Image Styles */
+table img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Container Spacing */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Hover Effects */
+.table-hover tbody tr:hover {
+    background-color: #3d3d3d;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    table img {
+        max-width: 80px;
+    }
+}

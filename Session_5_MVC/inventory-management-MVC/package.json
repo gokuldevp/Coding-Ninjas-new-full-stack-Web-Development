@@ -1,0 +1,16 @@
+{
+  "name": "inventory-mgmt-mvc",
+  "version": "1.0.0",
+  "description": "Inventory mgmt is a robust inventory management application designed using the MVC architecture and powered by Node.js.It efficiently tracks and manages inventory levels, orders, and deliveries. With a user-friendly interface, InventoryPro ensures real-time updates, easy navigation, and seamless integration with existing systems",
+  "license": "ISC",
+  "author": "Gokul Dev P",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
