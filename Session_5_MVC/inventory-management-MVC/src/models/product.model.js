@@ -13,6 +13,19 @@ export default class ProductModel {
     static get() {
         return products; // Return the products array
     }
+
+    // Static method to add a new product to the collection
+    static add(productObj) {
+        // Create new product with auto-incremented ID
+        let newProduct = new ProductModel(
+            products.length + 1,    // Generate new ID based on current array length
+            productObj.name,        // Product name from input
+            productObj.desc,        // Product description from input
+            productObj.price,       // Product price from input
+            productObj.imageURL     // Product image URL from input
+        );
+        products.push(newProduct); // Add new product to the array
+    }
 }
 
 // Define the products array with instances of the ProductModel class

@@ -8,7 +8,7 @@ export default class ProductController {
         // Fetch all products from model
         let products = ProductModel.get();
         // Render products view with product data
-        return res.render('products', { products: products });
+        return res.render('products', { products });
     }
 
     // Handle GET request for new product form
@@ -19,9 +19,7 @@ export default class ProductController {
 
     // Handle POST request for new product submission
     postNewProduct(req, res) {
-        // TODO: Add validation and sanitization
-        console.log(req.body); // Log form data
-        // TODO: Add product to database/model
+        ProductModel.add(req.body); // Add new product to the model using data from request body
         // Redirect to home page after submission
         return res.redirect('/');
     }
