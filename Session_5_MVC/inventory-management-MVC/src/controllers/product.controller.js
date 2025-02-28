@@ -55,4 +55,18 @@ export default class ProductController {
         // Redirect to home page after successful submission
         return res.redirect('/');
     }
+
+    getUpdateProductView(req, res) {
+        // 1. if product exists, then return view
+        const {id} = req.body;
+        const productFound = ProductModel.getUpdateProductView()
+
+        if (productFound){
+            return res.render('/update-product')
+        }
+        // 2. else return error
+        else {
+            return res.send(400);
+        }
+    }
 }

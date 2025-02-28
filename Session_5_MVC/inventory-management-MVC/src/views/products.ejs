@@ -7,6 +7,7 @@
             <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Image</th>
+            <th scope="col">Update</th>
         </tr>
     </thead>
     <!-- Table body -->
@@ -19,6 +20,9 @@
                 <th><%=product.price %></th> <!-- Displaying the product price -->
                 <td>
                     <img src="<%=product.imageUrl %>" /> <!-- Displaying the product image -->
+                </td>
+                <td>
+                        <a type="button" class="btn btn-primary" aria-current="page" href="/update">Update Product</a>  <!-- Active link to the update products page -->
                 </td>
             </tr>
         <% }) %> <!-- Ending the loop -->

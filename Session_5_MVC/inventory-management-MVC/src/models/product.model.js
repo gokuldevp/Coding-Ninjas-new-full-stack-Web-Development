@@ -26,6 +26,17 @@ export default class ProductModel {
         );
         products.push(newProduct); // Add new product to the array
     }
+
+    /**
+     * Retrieves a product by its ID.
+     * 
+     * @param {string} id - The unique identifier of the product.
+     * @returns {Object|null} The product object if found, otherwise null.
+     */
+    static getProduct(id) {
+        return products.find((p) => p.id === id) || null;
+    }
+
 }
 
 // Define the products array with instances of the ProductModel class

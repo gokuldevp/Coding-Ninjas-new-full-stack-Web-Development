@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="update-product.css">
+
+<h1>Update Product</h1>
+
+<% if (error) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+<% } %>
+
+<form action="/update-product" method="post">
+    <input type="hidden" id="productId" name="id" value="<%= product.id %>" readonly><br><br>
+
+    <label for="productName">Product Name:</label><br>
+    <input type="text" id="productName" name="name" value="<%= product.name %>" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="desc" rows="4" required><%= product.desc %></textarea><br><br>
+
+    <label for="imageURL">Image URL:</label><br>
+    <input type="url" id="imageURL" name="imageURL" value="<%= product.imageURL %>" required><br><br>
+
+    <label for="price">Price:</label><br>
+    <input type="number" id="price" name="price" step="0.01" min="0" value="<%= product.price %>" required><br><br>
+
+    <button type="submit">Update Product</button>
+</form>
+

@@ -77,21 +77,25 @@ export const validateProductRequest = async (req, res, next) => {
     const rules = [
         // Validate 'name' field
         body('name')
+            .trim()
             .notEmpty().withMessage("Name Field is Required") // Ensure name is not empty
             .matches(/^[a-zA-Z\s'-]+$/).withMessage("Name shouldn't contain numbers or special characters"), // Allow only alphabets, spaces, hyphens, and apostrophes
 
         // Validate 'price' field
         body('price')
+            .trim()
             .notEmpty().withMessage('Price Field should not be empty') // Ensure price is provided
             .matches(/^\d+(\.\d{1,2})?$/).withMessage('Price should be a positive number with up to two decimal places'), // Ensure price is a valid decimal number
 
         // Validate 'desc' (description) field
         body('desc')
+            .trim()
             .notEmpty().withMessage('Description Field should not be empty') // Ensure description is provided
             .isLength({ min: 10, max: 500 }).withMessage('Description must be between 10 and 500 characters'), // Enforce character length limits
 
         // Validate 'imageURL' field
         body('imageURL')
+            .trim()
             .notEmpty().withMessage('Image Url Field should not be empty') // Ensure image URL is provided
             .isURL().withMessage('Invalid URL') // Validate URL format
             .matches(/\.(jpeg|jpg|png)$/i).withMessage('Image URL must be a valid JPG or PNG') // Ensure image is in JPG or PNG format

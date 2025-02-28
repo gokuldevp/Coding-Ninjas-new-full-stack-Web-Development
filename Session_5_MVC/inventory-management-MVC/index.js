@@ -31,6 +31,8 @@ const productController = new ProductController();
 server.get("/", productController.getProduct);
 // Route to display new product form
 server.get("/new", productController.getAddProduct);
+// Route to display update product form
+server.get("/update", productController.getUpdateProductView);
 // Route to handle form submission
 server.post("/submit-product",validateProductRequest, productController.postNewProduct);
 
