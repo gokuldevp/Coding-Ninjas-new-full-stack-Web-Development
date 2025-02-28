@@ -79,7 +79,7 @@ export const validateProductRequest = async (req, res, next) => {
         body('name')
             .trim()
             .notEmpty().withMessage("Name Field is Required") // Ensure name is not empty
-            .matches(/^[a-zA-Z\s'-]+$/).withMessage("Name shouldn't contain numbers or special characters"), // Allow only alphabets, spaces, hyphens, and apostrophes
+            .matches(/^[a-zA-Z][a-zA-Z0-9\s'-]+$/).withMessage("Name must start with a letter and can contain alphabets, numbers, spaces, hyphens, and apostrophes"), // Ensures the name starts with a letter and allows only letters, numbers, spaces, hyphens, and apostrophes
 
         // Validate 'price' field
         body('price')
@@ -98,7 +98,6 @@ export const validateProductRequest = async (req, res, next) => {
             .trim()
             .notEmpty().withMessage('Image Url Field should not be empty') // Ensure image URL is provided
             .isURL().withMessage('Invalid URL') // Validate URL format
-            .matches(/\.(jpeg|jpg|png)$/i).withMessage('Image URL must be a valid JPG or PNG') // Ensure image is in JPG or PNG format
     ];
 
     // 2. Run all validation rules

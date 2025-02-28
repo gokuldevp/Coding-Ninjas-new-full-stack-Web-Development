@@ -1,65 +1,91 @@
 // Export the ProductModel class as the default export
 export default class ProductModel {
-    // Constructor method to initialize the properties of the ProductModel instance
+    /**
+     * Constructor method to initialize the properties of the ProductModel instance.
+     * @param {number} _id - Unique identifier of the product.
+     * @param {string} _name - Name of the product.
+     * @param {string} _desc - Description of the product.
+     * @param {number} _price - Price of the product.
+     * @param {string} _imageUrl - Image URL of the product.
+     */
     constructor(_id, _name, _desc, _price, _imageUrl) {
-        this.id = _id;              // Assign the _id parameter to the id property
-        this.name = _name;          // Assign the _name parameter to the name property
-        this.desc = _desc;          // Assign the _desc parameter to the desc property
-        this.price = _price;        // Assign the _price parameter to the price property
-        this.imageUrl = _imageUrl;  // Assign the _imageUrl parameter to the imageUrl property
+        this.id = _id;              // Assign the unique ID to the product
+        this.name = _name;          // Assign the product name
+        this.desc = _desc;          // Assign the product description
+        this.price = _price;        // Assign the product price
+        this.imageUrl = _imageUrl;  // Assign the product image URL
     }
 
-    // Static method to return the list of products
+    /**
+     * Retrieves the list of all products.
+     * @returns {Array} Array of product objects.
+     */
     static get() {
-        return products; // Return the products array
+        return products;
     }
 
-    // Static method to add a new product to the collection
+    /**
+     * Adds a new product to the collection.
+     * Generates a new unique ID for the product before adding it to the list.
+     * @param {Object} productObj - Object containing product details.
+     */
     static add(productObj) {
-        // Create new product with auto-incremented ID
+        // Create a new product with an auto-incremented ID
         let newProduct = new ProductModel(
-            products.length + 1,    // Generate new ID based on current array length
-            productObj.name,        // Product name from input
-            productObj.desc,        // Product description from input
-            productObj.price,       // Product price from input
-            productObj.imageURL     // Product image URL from input
+            products.length + 1,   // Generate a new ID based on the current array length
+            productObj.name,       // Product name from input
+            productObj.desc,       // Product description from input
+            productObj.price,      // Product price from input
+            productObj.imageURL    // Product image URL from input
         );
-        products.push(newProduct); // Add new product to the array
+        products.push(newProduct); // Add the new product to the array
     }
 
     /**
      * Retrieves a product by its ID.
-     * 
-     * @param {string} id - The unique identifier of the product.
+     * @param {number} id - The unique identifier of the product.
      * @returns {Object|null} The product object if found, otherwise null.
      */
     static getProduct(id) {
-        return products.find((p) => p.id === id) || null;
+        return products.find((p) => p.id == id) || null;
     }
 
+    /**
+     * Updates an existing product in the collection.
+     * Finds the product by ID and updates its details.
+     * @param {Object} productObj - Object containing updated product details.
+     */
+    static update(productObj) {
+        // Find the index of the product to be updated
+        const pindex = products.findIndex(product => product.id == productObj.id);
+
+        if (pindex !== -1) {
+            // Create a new ProductModel instance with updated details
+            let updatedProduct = new ProductModel(
+                productObj.id,     // Keep the existing product ID
+                productObj.name,   // Updated product name
+                productObj.desc,   // Updated product description
+                productObj.price,  // Updated product price
+                productObj.imageURL // Updated product image URL
+            );
+            // Replace the old product with the updated product
+            products[pindex] = updatedProduct;
+        }
+    }
 }
 
-// Define the products array with instances of the ProductModel class
+// Define the initial products array with sample products
 var products = [
     new ProductModel(
-        1,                              // ID of the first product
-        'Product 1',                    // Name of the first product
-        'Description for Product 1',    // Description of the first product
-        19.99,                          // Price of the first product
-        'https://m.media-amazon.com/images/I/51-nXsSRfZL._SX328_BO1,204,203,200_.jpg'  // Image URL of the first product
+        1, 'Product 1', 'Description for Product 1', 19.99,
+        'https://m.media-amazon.com/images/I/51-nXsSRfZL._SX328_BO1,204,203,200_.jpg'
     ),
     new ProductModel(
-        2,                              // ID of the second product
-        'Product 2',                    // Name of the second product
-        'Description for Product 2',    // Description of the second product
-        29.99,                          // Price of the second product
-        'https://m.media-amazon.com/images/I/51xwGSNX-EL._SX356_BO1,204,203,200_.jpg'  // Image URL of the second product
+        2, 'Product 2', 'Description for Product 2', 29.99,
+        'https://m.media-amazon.com/images/I/51xwGSNX-EL._SX356_BO1,204,203,200_.jpg'
     ),
     new ProductModel(
-        3,                              // ID of the third product
-        'Product 3',                    // Name of the third product
-        'Description for Product 3',    // Description of the third product
-        39.99,                          // Price of the third product
-        'https://m.media-amazon.com/images/I/31PBdo581fL._SX317_BO1,204,203,200_.jpg'  // Image URL of the third product
+        3, 'Product 3', 'Description for Product 3', 39.99,
+        'https://m.media-amazon.com/images/I/31PBdo581fL._SX317_BO1,204,203,200_.jpg'
     ),
 ];

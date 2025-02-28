@@ -22,7 +22,7 @@
                     <img src="<%=product.imageUrl %>" /> <!-- Displaying the product image -->
                 </td>
                 <td>
-                        <a type="button" class="btn btn-primary" aria-current="page" href="/update">Update Product</a>  <!-- Active link to the update products page -->
+                        <a type="button" class="btn btn-primary" aria-current="page" href="/update/<%= product.id %>">Update Product</a>  <!-- Active link to the update products page -->
                 </td>
             </tr>
         <% }) %> <!-- Ending the loop -->

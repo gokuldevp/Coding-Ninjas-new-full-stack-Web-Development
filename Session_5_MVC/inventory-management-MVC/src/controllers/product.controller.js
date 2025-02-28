@@ -56,17 +56,55 @@ export default class ProductController {
         return res.redirect('/');
     }
 
+    /**
+     * Handles GET request to display the product update form.
+     * Retrieves the product by ID and renders the 'update-product' view.
+     * If the product is not found, responds with a 400 status and an error message.
+     * @param {Object} req - Express request object
+     * @param {Object} res - Express response object
+     */
     getUpdateProductView(req, res) {
-        // 1. if product exists, then return view
-        const {id} = req.body;
-        const productFound = ProductModel.getUpdateProductView()
-
-        if (productFound){
-            return res.render('/update-product')
-        }
-        // 2. else return error
-        else {
-            return res.send(400);
+        // Extract product ID from request parameters
+        const { id } = req.params;
+        // console.log(req.params); // Debugging log to check received ID
+    
+        // Fetch product details based on the provided ID
+        const productFound = ProductModel.getProduct(id); 
+    
+        if (productFound) {
+            // Render the 'update-product' view with the retrieved product details
+            return res.render("update-product", { product: productFound, error: null }); 
+        } else {
+            // Send a 400 status response if the product is not found
+            return res.status(400).send("Product not found");
         }
     }
+
+    /**
+     * Handles POST request to update an existing product.
+     * Extracts and trims user input, then updates the product in the database.
+     * Redirects to the home page upon successful update.
+     * @param {Object} req - Express request object
+     * @param {Object} res - Express response object
+     */
+    updateProduct(req, res) {
+        // Extract and sanitize user input from request body
+        const { id, name, desc, price, imageURL } = req.body;
+        
+        const productDetails = {
+            id: id?.trim(),
+            name: name?.trim(),
+            desc: desc?.trim(),
+            price: price?.toString().trim(),
+            imageURL: imageURL?.trim()
+        };
+    
+        // Update the product in the model
+        ProductModel.update(productDetails);
+
+        // Redirect to home page after successful update
+        return res.redirect('/');
+    }
+
+    
 }

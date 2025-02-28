@@ -38,7 +38,7 @@ label {
 }
 
 /* Input fields and textarea styling */
-input[type="text"], input[type="url"], input[type="number"], textarea {
+input, textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

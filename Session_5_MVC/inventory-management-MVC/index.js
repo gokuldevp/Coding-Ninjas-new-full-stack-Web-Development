@@ -27,14 +27,18 @@ const port = 8000; // Can be changed to: process.env.PORT || 8000;
 const productController = new ProductController();
 
 // Configure routes
+
 // Home route - displays all products
 server.get("/", productController.getProduct);
 // Route to display new product form
 server.get("/new", productController.getAddProduct);
-// Route to display update product form
-server.get("/update", productController.getUpdateProductView);
 // Route to handle form submission
 server.post("/submit-product",validateProductRequest, productController.postNewProduct);
+
+// Route to display update product form
+server.get("/update/:id", productController.getUpdateProductView);
+// Route to handle update form
+server.post("/update-product",validateProductRequest, productController.updateProduct);
 
 // Serve static files (CSS, images, JS) from views directory
 server.use(express.static('src/views'));
