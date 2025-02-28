@@ -23,7 +23,7 @@
                 </td>
                 <td>
                         <a type="button" class="btn btn-primary" aria-current="page" href="/update/<%= product.id %>">Update</a>  <!-- Active link to the update products page -->
-                        <a type="button" class="btn btn-danger" aria-current="page" href="/delete/<%= product.id %>">Delete</a>  <!-- Active link to the Delete -->
+                        <a type="button" class="btn btn-danger" aria-current="page" onclick="deleteProduct('<%= product.id %>')">Delete</a> 
                 </td>
             </tr>
         <% }) %> <!-- Ending the loop -->

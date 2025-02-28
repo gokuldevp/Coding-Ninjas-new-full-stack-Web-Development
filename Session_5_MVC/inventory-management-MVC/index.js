@@ -10,6 +10,8 @@ import { validateProductRequest } from './src/middlewares/validate.middleware.js
 // Initializing the express application.
 const server = express();
 
+// Serve static files (CSS, images, JS) from views directory
+server.use(express.static('public'));
 // Configure EJS as the template engine
 server.set("view engine", "ejs");
 // Set views directory path for EJS templates
@@ -34,17 +36,13 @@ server.get("/", productController.getProduct);
 server.get("/new", productController.getAddProduct);
 // Route to handle form submission
 server.post("/submit-product",validateProductRequest, productController.postNewProduct);
-
 // Route to display update product form
 server.get("/update/:id", productController.getUpdateProductView);
 // Route to handle update form
 server.post("/update-product",validateProductRequest, productController.postUpdateProduct);
 
 // Route to delete product
-server.get("/delete/:id", productController.deleteProductDetails);
-
-// Serve static files (CSS, images, JS) from views directory
-server.use(express.static('public'));
+server.post("/delete/:id", productController.deleteProductDetails);
 
 // Start server and listen on specified port
 server.listen(port, () => {
