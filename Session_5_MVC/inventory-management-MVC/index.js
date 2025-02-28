@@ -5,6 +5,7 @@ import expressEjsLayouts from 'express-ejs-layouts'; // Middleware for EJS layou
 
 // Importing the ProductController class for handling product-related routes.
 import ProductController from './src/controllers/product.controller.js';
+import { validateProductRequest } from './src/middlewares/validate.middleware.js';
 
 // Initializing the express application.
 const server = express();
@@ -31,7 +32,7 @@ server.get("/", productController.getProduct);
 // Route to display new product form
 server.get("/new", productController.getAddProduct);
 // Route to handle form submission
-server.post("/submit-product", productController.postNewProduct);
+server.post("/submit-product",validateProductRequest, productController.postNewProduct);
 
 // Serve static files (CSS, images, JS) from views directory
 server.use(express.static('src/views'));
