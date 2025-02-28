@@ -1,7 +1,7 @@
 // Importing the express module to create a web server.
 import express from 'express';
 import path from 'path';
-import expressEjsLayouts from 'express-ejs-layouts';
+import expressEjsLayouts from 'express-ejs-layouts'; // Middleware for EJS layouts
 
 // Importing the ProductController class for handling product-related routes.
 import ProductController from './src/controllers/product.controller.js';
@@ -9,26 +9,34 @@ import ProductController from './src/controllers/product.controller.js';
 // Initializing the express application.
 const server = express();
 
-// Setting 'ejs' as the view engine for rendering HTML templates.
+// Configure EJS as the template engine
 server.set("view engine", "ejs");
-
-// Setting the directory for the views (templates) to the 'src/views' folder.
+// Set views directory path for EJS templates
 server.set("views", path.resolve("src", "views"));
+// Enable EJS layout middleware
 server.use(expressEjsLayouts);
 
-// Defining the port number. It uses an environment variable if available, otherwise defaults to 8000.
-const port = 8000 //||  process.env.PORT; // Use the process.env.PORT if available, otherwise default to 8000.
+// Middleware to parse URL-encoded form data (for POST requests)
+server.use(express.urlencoded({ extended: true }));
 
-// Creating an instance of the ProductController.
+// Define server port (environment variable with fallback)
+const port = 8000; // Can be changed to: process.env.PORT || 8000;
+
+// Create controller instance for product-related operations
 const productController = new ProductController();
 
-// Defining the route for the root URL ("/") and linking it to the getProduct method of ProductController.
+// Configure routes
+// Home route - displays all products
 server.get("/", productController.getProduct);
+// Route to display new product form
+server.get("/new", productController.getAddProduct);
+// Route to handle form submission
+server.post("/submit-product", productController.postNewProduct);
 
-// Setting up the static file server to serve files from the 'src/views' directory (e.g., CSS, JS, images).
+// Serve static files (CSS, images, JS) from views directory
 server.use(express.static('src/views'));
 
-// Starting the server and logging a message to indicate it is running.
+// Start server and listen on specified port
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

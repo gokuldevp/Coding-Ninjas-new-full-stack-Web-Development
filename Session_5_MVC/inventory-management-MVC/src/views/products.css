@@ -41,6 +41,30 @@ table img {
     transition: background-color 0.3s ease;
 }
 
+.navbar-nav {
+    display: flex; /* Aligns list items horizontally */
+    gap: 15px; /* Adds space between the links */
+    list-style: none; /* Removes default bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
+.nav-item {
+    display: inline; /* Ensures items align inline */
+}
+
+.nav-link {
+    text-decoration: none; /* Removes underline */
+    color: #000; /* Adjust the color as needed */
+    padding: 5px 10px; /* Adds padding for better spacing */
+    transition: color 0.3s; /* Smooth hover effect */
+}
+
+.nav-link:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+
 /* Responsive Table */
 @media (max-width: 768px) {
     table {
