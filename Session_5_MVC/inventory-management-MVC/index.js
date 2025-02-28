@@ -38,10 +38,13 @@ server.post("/submit-product",validateProductRequest, productController.postNewP
 // Route to display update product form
 server.get("/update/:id", productController.getUpdateProductView);
 // Route to handle update form
-server.post("/update-product",validateProductRequest, productController.updateProduct);
+server.post("/update-product",validateProductRequest, productController.postUpdateProduct);
+
+// Route to delete product
+server.get("/delete/:id", productController.deleteProductDetails);
 
 // Serve static files (CSS, images, JS) from views directory
-server.use(express.static('src/views'));
+server.use(express.static('public'));
 
 // Start server and listen on specified port
 server.listen(port, () => {

@@ -7,7 +7,7 @@
             <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Image</th>
-            <th scope="col">Update</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <!-- Table body -->
@@ -22,7 +22,8 @@
                     <img src="<%=product.imageUrl %>" /> <!-- Displaying the product image -->
                 </td>
                 <td>
-                        <a type="button" class="btn btn-primary" aria-current="page" href="/update/<%= product.id %>">Update Product</a>  <!-- Active link to the update products page -->
+                        <a type="button" class="btn btn-primary" aria-current="page" href="/update/<%= product.id %>">Update</a>  <!-- Active link to the update products page -->
+                        <a type="button" class="btn btn-danger" aria-current="page" href="/delete/<%= product.id %>">Delete</a>  <!-- Active link to the Delete -->
                 </td>
             </tr>
         <% }) %> <!-- Ending the loop -->

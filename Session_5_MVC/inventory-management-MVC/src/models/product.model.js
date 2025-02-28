@@ -72,10 +72,31 @@ export default class ProductModel {
             products[pindex] = updatedProduct;
         }
     }
+
+    /**
+     * Deletes a product from the collection.
+     * This function removes a product from the `products` array based on the provided product ID.  
+     * It filters out the product with the matching ID and then verifies if the deletion was successful  
+     * by checking if `getProduct(productId)` returns `null` (indicating the product was removed).
+     * 
+     * @param {number|string} productId - The unique identifier of the product to be deleted.
+     * @returns {boolean} - Returns `true` if the product was successfully deleted, otherwise `false`.
+     */
+    static delete(productId) {
+        // Store the initial product count
+        const initialLength = products.length;
+
+        // Remove the product with the given ID
+        products = products.filter(product => product.id != productId);
+
+        // Check if the product was successfully removed
+        return products.length < initialLength;
+    }
+
 }
 
 // Define the initial products array with sample products
-var products = [
+let products = [
     new ProductModel(
         1, 'Product 1', 'Description for Product 1', 19.99,
         'https://m.media-amazon.com/images/I/51-nXsSRfZL._SX328_BO1,204,203,200_.jpg'

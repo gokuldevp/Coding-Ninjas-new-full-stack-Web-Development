@@ -66,7 +66,9 @@ export default class ProductController {
     getUpdateProductView(req, res) {
         // Extract product ID from request parameters
         const { id } = req.params;
-        // console.log(req.params); // Debugging log to check received ID
+        // if (id[-1]=='s'){
+        //     return redirect('/')
+        // }
     
         // Fetch product details based on the provided ID
         const productFound = ProductModel.getProduct(id); 
@@ -87,7 +89,7 @@ export default class ProductController {
      * @param {Object} req - Express request object
      * @param {Object} res - Express response object
      */
-    updateProduct(req, res) {
+    postUpdateProduct(req, res) {
         // Extract and sanitize user input from request body
         const { id, name, desc, price, imageURL } = req.body;
         
@@ -106,5 +108,23 @@ export default class ProductController {
         return res.redirect('/');
     }
 
+    /**
+     * Handles DELETE request to remove a product.
+     * Extracts the product ID from request parameters and attempts to delete the product using the model.
+     * Redirects to the home page whether deletion is successful or not.
+     * 
+     * @param {Object} req - Express request object containing product ID in params.
+     * @param {Object} res - Express response object used to redirect the user.
+     */
+    deleteProductDetails(req, res) {
+        // Extract product ID from request parameters
+        const { id } = req.params;
+
+        // Attempt to delete the product from the model
+        const isDeleted = ProductModel.delete(id);
+
+        // Redirect to home page after deletion attempt
+        return res.redirect('/');
+    }
     
 }
