@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Form</title>
     <link rel="stylesheet" href="new-product.css">
-</head>
-<body>
     <h1>Add a Product</h1>
+    <% if (error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+        
+    <% } %>
     <form action="/submit-product" method="post">
         <label for="productName">Product Name:</label><br>
         <input type="text" id="productName" name="name" required><br><br>
@@ -23,5 +21,3 @@
 
         <button type="submit">Submit</button>
     </form>
-</body>
-</html>
