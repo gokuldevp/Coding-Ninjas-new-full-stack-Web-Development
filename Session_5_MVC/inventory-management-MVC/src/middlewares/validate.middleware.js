@@ -94,10 +94,59 @@ export const validateProductRequest = async (req, res, next) => {
             .isLength({ min: 10, max: 500 }).withMessage('Description must be between 10 and 500 characters'), // Enforce character length limits
 
         // Validate 'imageURL' field
+        // body('imageURL')
+        //     .trim()
+        //     .notEmpty().withMessage('Image Url Field should not be empty') // Ensure image URL is provided
+        //     .isURL().withMessage('Invalid URL') // Validate URL format
+
+        // Validating Files using custom validation
         body('imageURL')
+            .custom((value, {req}) => {
+                if (!req.file) {
+                    throw Error('Immage is required!');
+                }
+                return true;
+            })
+    ];
+
+    // 2. Run all validation rules
+    await Promise.all(rules.map((rule) => rule.run(req)));
+
+    // 3. Check if validation resulted in errors
+    let validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+        return res.status(400).render('new-product', { error: validationErrors.array()[0].msg }); // Return first validation error
+    }
+
+    // 4. Proceed to the next middleware or route handler if validation passes
+    next();
+};
+
+
+/**
+ * Middleware to validate product request data before update submission.
+ * Ensures input fields meet required constraints and formats.
+ */
+export const validateUpdateProductRequest = async (req, res, next) => {
+
+    const rules = [
+        // Validate 'name' field
+        body('name')
             .trim()
-            .notEmpty().withMessage('Image Url Field should not be empty') // Ensure image URL is provided
-            .isURL().withMessage('Invalid URL') // Validate URL format
+            .notEmpty().withMessage("Name Field is Required") // Ensure name is not empty
+            .matches(/^[a-zA-Z][a-zA-Z0-9\s'-]+$/).withMessage("Name must start with a letter and can contain alphabets, numbers, spaces, hyphens, and apostrophes"), // Ensures the name starts with a letter and allows only letters, numbers, spaces, hyphens, and apostrophes
+
+        // Validate 'price' field
+        body('price')
+            .trim()
+            .notEmpty().withMessage('Price Field should not be empty') // Ensure price is provided
+            .matches(/^\d+(\.\d{1,2})?$/).withMessage('Price should be a positive number with up to two decimal places'), // Ensure price is a valid decimal number
+
+        // Validate 'desc' (description) field
+        body('desc')
+            .trim()
+            .notEmpty().withMessage('Description Field should not be empty') // Ensure description is provided
+            .isLength({ min: 10, max: 500 }).withMessage('Description must be between 10 and 500 characters'), // Enforce character length limits
     ];
 
     // 2. Run all validation rules

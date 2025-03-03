@@ -5,7 +5,8 @@ import expressEjsLayouts from 'express-ejs-layouts'; // Middleware for EJS layou
 
 // Importing the ProductController class for handling product-related routes.
 import ProductController from './src/controllers/product.controller.js';
-import { validateProductRequest } from './src/middlewares/validate.middleware.js';
+import { validateUpdateProductRequest, validateProductRequest } from './src/middlewares/validate.middleware.js';
+import { upload } from './src/middlewares/update-product.middleware.js';
 
 // Initializing the express application.
 const server = express();
@@ -35,11 +36,11 @@ server.get("/", productController.getProduct);
 // Route to display new product form
 server.get("/new", productController.getAddProduct);
 // Route to handle form submission
-server.post("/submit-product",validateProductRequest, productController.postNewProduct);
+server.post("/submit-product",upload.single('imageURL'),validateProductRequest, productController.postNewProduct);
 // Route to display update product form
 server.get("/update/:id", productController.getUpdateProductView);
 // Route to handle update form
-server.post("/update-product",validateProductRequest, productController.postUpdateProduct);
+server.post("/update-product",upload.single('imageURL'),validateUpdateProductRequest, productController.postUpdateProduct);
 
 // Route to delete product
 server.post("/delete/:id", productController.deleteProductDetails);

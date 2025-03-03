@@ -1,5 +1,7 @@
 // Importing the ProductModel for database operations
 import ProductModel from '../models/product.model.js';
+import * as fs from 'fs'
+import * as path from 'path'
 
 /**
  * Controller class for handling product-related operations.
@@ -40,7 +42,8 @@ export default class ProductController {
      */
     postNewProduct(req, res) {
         // Extract and sanitize user input from request body
-        const { name, desc, price, imageURL } = req.body;
+        const { name, desc, price} = req.body;
+        const imageURL = 'images/' + req.file.filename;
 
         const productDetails = {
             name: name?.trim(),
@@ -66,13 +69,10 @@ export default class ProductController {
     getUpdateProductView(req, res) {
         // Extract product ID from request parameters
         const { id } = req.params;
-        // if (id[-1]=='s'){
-        //     return redirect('/')
-        // }
     
         // Fetch product details based on the provided ID
         const productFound = ProductModel.getProduct(id); 
-    
+
         if (productFound) {
             // Render the 'update-product' view with the retrieved product details
             return res.render("update-product", { product: productFound, error: null }); 
@@ -91,16 +91,39 @@ export default class ProductController {
      */
     postUpdateProduct(req, res) {
         // Extract and sanitize user input from request body
-        const { id, name, desc, price, imageURL } = req.body;
+        const { id, name, desc, price } = req.body;
+        let imageURL = null;
         
+        if (req.file) {
+            // Attempting to delete the existing product image
+            const product = ProductModel.getProduct(id);
+
+            if (product) {
+                const fullPath = path.resolve('public', product.imageUrl);
+
+                try {
+                    if (fs.existsSync(fullPath)) {
+                        fs.unlinkSync(fullPath); // Delete the file safely
+                    }
+                } catch (error) {
+                    console.error(`Error deleting image: ${error.message}`);
+                }
+            }
+
+            // Ensure filename exists before concatenating
+            if (req.file.filename) {
+                imageURL = 'images/' + req.file.filename;
+            }
+        }
+
         const productDetails = {
             id: id?.trim(),
             name: name?.trim(),
             desc: desc?.trim(),
-            price: price?.toString().trim(),
+            price: (price ?? '').toString().trim(), // Prevents TypeError if price is null
             imageURL: imageURL?.trim()
         };
-    
+
         // Update the product in the model
         ProductModel.update(productDetails);
 
@@ -120,9 +143,21 @@ export default class ProductController {
         // Extract product ID from request parameters
         const { id } = req.params;
 
-        // Attempt to delete the product from the model
-        const isDeleted = ProductModel.delete(id);
+        // Attempting to delete the product image
+        const product = ProductModel.getProduct(id);
 
+        // Ensure product has an image before attempting deletion
+        if (product) {
+
+            const fullPath = path.resolve('public', product.imageUrl);
+            if (fs.existsSync(fullPath)) {
+                fs.unlinkSync(fullPath); // Delete the file
+            }
+
+            // Attempt to delete the product from the model
+            const isDeleted = ProductModel.delete(id);
+        }
+        
         // Redirect to home page after deletion attempt
         return res.redirect('/');
     }

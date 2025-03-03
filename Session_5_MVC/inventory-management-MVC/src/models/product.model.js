@@ -59,18 +59,34 @@ export default class ProductModel {
         // Find the index of the product to be updated
         const pindex = products.findIndex(product => product.id == productObj.id);
 
+
+        // if (pindex !== -1) {
+        //     // Create a new ProductModel instance with updated details
+        //     let updatedProduct = new ProductModel(
+        //         productObj.id,     // Keep the existing product ID
+        //         productObj.name,   // Updated product name
+        //         productObj.desc,   // Updated product description
+        //         productObj.price,  // Updated product price
+        //         productObj.imageURL // Updated product image URL
+        //     );
+        //     // Replace the old product with the updated product
+        //     products[pindex] = updatedProduct;
+        // }
+
         if (pindex !== -1) {
-            // Create a new ProductModel instance with updated details
-            let updatedProduct = new ProductModel(
-                productObj.id,     // Keep the existing product ID
-                productObj.name,   // Updated product name
-                productObj.desc,   // Updated product description
-                productObj.price,  // Updated product price
-                productObj.imageURL // Updated product image URL
-            );
-            // Replace the old product with the updated product
-            products[pindex] = updatedProduct;
-        }
+            if (productObj.name) {
+                products[pindex].name = productObj.name;
+            }
+            if (productObj.desc) {
+                products[pindex].desc = productObj.desc;
+            }
+            if (productObj.price) {
+                products[pindex].price = productObj.price;
+            }
+            if (productObj.imageURL) {
+                products[pindex].imageUrl = productObj.imageURL;
+            }
+        }        
     }
 
     /**

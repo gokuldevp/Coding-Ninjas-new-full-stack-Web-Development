@@ -6,7 +6,7 @@
         </div>
         
     <% } %>
-    <form action="/submit-product" method="post">
+    <form action="/submit-product" method="post" enctype="multipart/form-data">
         <label for="productName">Product Name:</label><br>
         <input type="text" id="productName" name="name" ><br><br>
 
@@ -14,7 +14,8 @@
         <textarea id="description" name="desc" rows="4" required></textarea><br><br>
 
         <label for="imageURL">Image URL:</label><br>
-        <input type="url" id="imageURL" name="imageURL" required><br><br>
+        <!-- <input type="text" class="form-control" id="imageUrl" name="imageURL" required><br><br> -->
+        <input type="file" id="imageURL" name="imageURL" accept="images/*"  required><br><br>
 
         <label for="price">Price:</label><br>
         <input type="number" id="price" name="price" step="0.01" min="0" required><br><br>
